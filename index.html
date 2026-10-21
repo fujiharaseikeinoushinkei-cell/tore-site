@@ -812,7 +812,9 @@ function closePage(){ $('#frame').classList.remove('sub'); $('#frame').scrollTop
 $$('.feat[data-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
 
 /* ---- 管理画面 ---- */
-const adm={open:false,signed:false,page:'purpose',cat:'頭',kind:'pdf',busy:false,msg:'',msgOk:true,img:null,imgInfo:''};
+const adm={open:false,signed:false,page:'purpose',cat:'頭',kind:'pdf',busy:false,msg:'',msgOk:true,img:null,imgInfo:'',title:'',dailyChk:false};
+// 種類・部位を切り替えても、入力ずみのタイトルとチェックが消えないようにする
+function admKeepForm(){ const t=$('#fTitle'); if(t) adm.title=t.value; const d=$('#fDaily'); if(d) adm.dailyChk=d.checked; }
 function admConfigured(){ return /^https:\/\//.test(CONFIG.SUPABASE_URL)&&CONFIG.ADMIN_EMAIL&&!CONFIG.ADMIN_EMAIL.startsWith('ここに')&&!CONFIG.SUPABASE_KEY.startsWith('ここに'); }
 function openAdmin(){ adm.open=true; adm.signed=false; $('#adm').classList.add('open'); admLoginView(); }
 async function closeAdmin(){ adm.open=false; adm.signed=false; $('#adm').classList.remove('open'); try{ await getSb().auth.signOut(); }catch(e){} }
@@ -872,13 +874,13 @@ function admRender(){
   const form=`<div class="aform"><div class="adm-h" style="margin-top:0">新しく追加する</div>
     ${P.cats?`<div class="fld"><label class="lb">部位</label><select id="fCat">${CATS.map(c=>`<option ${adm.cat===c.name?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>`:''}
     ${kindSel}
-    <div class="fld"><label class="lb">タイトル（自由に書けます）</label><input type="text" id="fTitle" maxlength="80" placeholder="例：首のストレッチ"></div>
+    <div class="fld"><label class="lb">タイトル（自由に書けます）</label><input type="text" id="fTitle" maxlength="80" placeholder="例：首のストレッチ" value="${esc(adm.title)}"></div>
     <div class="fld"><label class="lb">画像${adm.kind==='video'?'（なければ、YouTubeの画像を自動で使います）':''}</label><input type="file" id="fImg" accept="image/*">
       <div class="hint">長いほうを640px以下・JPEGに小さくして保存します。</div><div class="prev" id="fPrev"></div></div>
     ${adm.kind==='pdf'
       ?`<div class="fld"><label class="lb">PDFファイル</label><input type="file" id="fPdf" accept="application/pdf,.pdf"><div class="hint">50MBまで</div></div>`
       :`<div class="fld"><label class="lb">YouTubeのURL（限定公開でOK）</label><input type="url" id="fUrl" placeholder="https://youtu.be/xxxxxxxxxxx"></div>`}
-    ${P.daily?`<div class="fld"><label style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><input type="checkbox" id="fDaily">「毎日続けられる」にも載せる（③に表示）</label></div>`:''}
+    ${P.daily?`<div class="fld"><label style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><input type="checkbox" id="fDaily" ${adm.dailyChk?'checked':''}>「毎日続けられる」にも載せる（③に表示）</label></div>`:''}
     <button class="btn-main" type="button" id="fSave" ${adm.busy?'disabled':''}>${adm.busy?'保存中…':'保存する'}</button>
     <div class="adm-msg ${adm.msg?(adm.msgOk?'ok':'ng'):''}" id="fMsg">${esc(adm.msg)}</div></div>`;
   const memo=`<div class="aform" style="margin-top:26px"><div class="adm-h" style="margin-top:0">接続テスト（メモを保存）</div>
@@ -892,10 +894,10 @@ function admBind(){
   const box=$('#admBox');
   $('#admClose').onclick=closeAdmin;
   $('#admLogout').onclick=async()=>{ try{await getSb().auth.signOut();}catch(e){} adm.signed=false; admLoginView(); };
-  $$('[data-tab]',box).forEach(b=>b.onclick=()=>{ adm.page=b.dataset.tab; adm.msg=''; adm.img=null; adm.imgInfo=''; admRender(); });
-  $$('[data-cat]',box).forEach(b=>b.onclick=()=>{ adm.cat=b.dataset.cat; adm.msg=''; admRender(); });
-  const fc=$('#fCat'); if(fc) fc.onchange=()=>{ adm.cat=fc.value; admRender(); };
-  $$('input[name=kind]',box).forEach(r=>r.onchange=()=>{ adm.kind=r.value; adm.msg=''; admRender(); });
+  $$('[data-tab]',box).forEach(b=>b.onclick=()=>{ adm.page=b.dataset.tab; adm.kind=PAGES[adm.page].kinds[0]; adm.msg=''; adm.img=null; adm.imgInfo=''; adm.title=''; adm.dailyChk=false; admRender(); });
+  $$('[data-cat]',box).forEach(b=>b.onclick=()=>{ admKeepForm(); adm.cat=b.dataset.cat; adm.msg=''; admRender(); });
+  const fc=$('#fCat'); if(fc) fc.onchange=()=>{ admKeepForm(); adm.cat=fc.value; admRender(); };
+  $$('input[name=kind]',box).forEach(r=>r.onchange=()=>{ admKeepForm(); adm.kind=r.value; adm.msg=''; admRender(); });
   $('#fImg').onchange=async e=>{
     const f=e.target.files[0]; adm.img=null; $('#fPrev').innerHTML='';
     if(!f)return;
@@ -951,7 +953,7 @@ async function admSave(){
     const row={page:adm.page,category:P.cats?($('#fCat')?$('#fCat').value:adm.cat):null,kind:adm.kind,title,image_url,pdf_url,video_url:videoUrl||null,daily:P.daily?!!$('#fDaily').checked:false};
     const {error}=await getSb().from(CONFIG.ITEMS_TABLE).insert(row);
     if(error) throw error;
-    adm.img=null; adm.msg='保存しました'; adm.msgOk=true;
+    adm.img=null; adm.title=''; adm.dailyChk=false; adm.msg='保存しました'; adm.msgOk=true;
     await loadItems(true); admRender();
   }catch(e){
     // 失敗したときは、送ったファイルを片づける
