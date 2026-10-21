@@ -173,6 +173,79 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
 .faq details[open] summary{background:var(--green-l)}
 .faq details p{padding:14px 20px 18px 58px;font-size:13.5px;color:var(--ink2)}
 
+.feat{background:none;border:none;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
+.copy{cursor:pointer;opacity:.95}
+.copy:hover{text-decoration:underline}
+/* ---- 各ページ（目的別・動画・毎日・専門家） ---- */
+.subpage{display:none;padding:30px 4cqw 70px;min-height:70vh;background:var(--cream)}
+.frame.sub main{display:none}
+.frame.sub .subpage{display:block}
+.sub-top{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+.sub-back{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--green);color:var(--green-d);font-weight:700;font-size:13px;padding:9px 18px;border-radius:999px}
+.sub-top h2{font-size:28px;letter-spacing:.06em}
+.sub-lead{font-size:13px;color:var(--ink2);margin:-12px 0 20px}
+.sgrp{margin-bottom:34px}
+.sgrp h3{display:flex;align-items:center;gap:10px;font-size:19px;margin-bottom:14px;letter-spacing:.06em}
+.sgrp h3::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--c,#3dbb6d)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.tile{display:block;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 10px 22px -14px rgba(60,40,10,.5);transition:.3s;text-align:left}
+.tile:hover{transform:translateY(-5px);box-shadow:0 16px 28px -14px rgba(60,40,10,.55)}
+.tile .th{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,#e9efe6,#d9e6d6);display:flex;align-items:center;justify-content:center;color:#7a9a82;overflow:hidden}
+.tile .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.tile:hover .th img{transform:scale(1.07)}
+.tile .th svg{width:42px;height:42px;stroke-width:1.4}
+.tile .bg{position:absolute;right:8px;top:8px;z-index:2;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff;background:#e0524f}
+.tile .bg.v{background:#d92b2b}
+.tile .tt{padding:11px 13px 13px;font-weight:700;font-size:14px;line-height:1.5;color:var(--ink)}
+.tile .tt small{display:block;font-weight:400;font-size:11px;color:var(--ink2);margin-top:2px}
+.empty-sub{background:#fff;border:1px dashed #d9cfbd;border-radius:12px;padding:26px;text-align:center;color:var(--ink2);font-size:14px}
+/* ---- 管理画面 ---- */
+.adm{position:fixed;inset:0;z-index:300;background:rgba(30,25,20,.6);backdrop-filter:blur(4px);display:none;overflow:auto;padding:20px}
+.adm.open{display:block}
+.adm-box{max-width:1000px;margin:0 auto;background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);overflow:hidden}
+.adm-hd{display:flex;align-items:center;gap:12px;padding:16px 22px;background:linear-gradient(90deg,#2f7d4d,#43a36a);color:#fff}
+.adm-hd b{font-size:17px;letter-spacing:.06em;flex:1}
+.adm-hd button{background:rgba(255,255,255,.18);color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:999px}
+.adm-tabs{display:flex;gap:6px;padding:14px 22px 0;flex-wrap:wrap;border-bottom:1px solid #eee3d0}
+.adm-tabs button{padding:10px 16px;font-size:13px;font-weight:700;color:var(--ink2);border-radius:10px 10px 0 0;border:1px solid transparent;border-bottom:none}
+.adm-tabs button.on{background:#fff;color:var(--green-d);border-color:#eee3d0;position:relative;top:1px;box-shadow:0 -2px 0 var(--green) inset}
+.adm-body{padding:22px}
+.adm-login{max-width:380px;margin:50px auto;padding:0 20px 40px;text-align:center}
+.adm-login h3{font-size:20px;margin-bottom:6px}
+.adm-login p{font-size:12.5px;color:var(--ink2);margin-bottom:16px}
+.adm-login input{width:100%;font-size:16px;padding:13px 14px;border:1.5px solid #d9cfbd;border-radius:12px;margin-bottom:10px;outline:none;font-family:inherit}
+.adm-login input:focus{border-color:var(--green)}
+.adm-err{color:#d64545;font-size:13px;font-weight:700;min-height:1.4em;margin:6px 0}
+.btn-main{background:var(--green);color:#fff;font-weight:700;font-size:14px;padding:12px 26px;border-radius:12px;box-shadow:0 8px 16px -8px rgba(40,160,90,.7)}
+.btn-main:disabled{opacity:.6}
+.btn-sub{background:#fff;border:1.5px solid #cfc6b4;color:var(--ink2);font-weight:700;font-size:12px;padding:6px 12px;border-radius:999px}
+.btn-sub.red{border-color:#e08080;color:#c44}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chips button{padding:8px 16px;border-radius:999px;border:1.5px solid var(--c,#3dbb6d);color:var(--c,#2a8a4f);font-weight:700;font-size:13px;background:#fff}
+.chips button.on{background:var(--c,#3dbb6d);color:#fff}
+.adm-h{font-size:15px;font-weight:700;margin:6px 0 10px;display:flex;align-items:center;gap:8px}
+.adm-h::before{content:"";width:5px;height:16px;border-radius:3px;background:var(--green)}
+.arow{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #eee3d0;border-radius:12px;margin-bottom:8px;background:#fffdf8}
+.arow img,.arow .ph{width:84px;height:52px;object-fit:cover;border-radius:8px;background:#e9efe6;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#8aa;font-size:11px}
+.arow .nm{flex:1;min-width:0}
+.arow .nm b{display:block;font-size:14px;word-break:break-all}
+.arow .nm small{color:var(--ink2);font-size:11px}
+.arow label{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.arow .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.aform{background:#f6faf4;border:1px solid #d8e8d4;border-radius:14px;padding:18px;margin-top:20px}
+.aform .fld{margin-bottom:12px}
+.aform label.lb{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:4px}
+.aform input[type=text],.aform input[type=url],.aform select{width:100%;font-size:15px;padding:11px 12px;border:1.5px solid #d9cfbd;border-radius:10px;background:#fff;font-family:inherit;outline:none}
+.aform input[type=file]{font-size:13px;width:100%}
+.aform .hint{font-size:11px;color:var(--ink2);margin-top:3px}
+.aform .prev{margin-top:8px;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--ink2)}
+.aform .prev img{width:120px;height:75px;object-fit:cover;border-radius:8px;border:1px solid #ddd}
+.aform .radio{display:flex;gap:16px}
+.aform .radio label{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700}
+.aform input[type=checkbox],.arow input[type=checkbox]{width:18px;height:18px;accent-color:var(--green)}
+.adm-msg{margin-top:10px;font-size:13px;font-weight:700;min-height:1.4em}
+.adm-msg.ok{color:var(--green-d)}.adm-msg.ng{color:#d64545}
+.adm-note{font-size:12px;color:var(--ink2);background:#fff8e6;border:1px solid #f0d59a;border-radius:10px;padding:10px 12px;margin-bottom:16px;line-height:1.7}
 .memo{max-width:720px}
 .memo-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 10px 24px -16px rgba(60,40,10,.45)}
 .memo-row{display:flex;gap:10px}
@@ -269,6 +342,9 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
   .banner .btn-white{padding:10px 16px;font-size:11px}
   .cols{grid-template-columns:1fr}
   .tabbar{display:grid}
+  .sub-top h2{font-size:21px}
+  .tiles{grid-template-columns:repeat(2,1fr);gap:12px}
+  .tile .tt{font-size:12.5px;padding:9px 10px 11px}
   .memo-row{flex-direction:column}
   .memo-row button{padding:13px}
   .ft{padding-bottom:28px}
@@ -322,6 +398,8 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
     <button class="burger" id="burger" type="button" aria-label="メニュー">☰</button>
   </header>
 
+  <div class="subpage" id="subpage"></div>
+
   <main>
     <!-- ヒーロー -->
     <section class="hero" id="home">
@@ -345,10 +423,10 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
 
     <!-- 4つの特長 -->
     <section class="features">
-      <div class="feat"><span class="ic" style="background:#3dbb6d"><svg class="i"><use href="#i-run"/></svg></span><div><b>目的から探す</b><p>痛みの予防・改善、<br>体力づくりなど</p></div></div>
-      <div class="feat"><span class="ic" style="background:#3f9be0"><svg class="i"><use href="#i-play"/></svg></span><div><b>動画でわかる</b><p>正しいフォームを<br>動画でチェック</p></div></div>
-      <div class="feat"><span class="ic" style="background:#f59a2e"><svg class="i"><use href="#i-cal"/></svg></span><div><b>毎日続けられる</b><p>1日5〜15分の<br>かんたんメニュー</p></div></div>
-      <div class="feat"><span class="ic" style="background:#ef5b8d"><svg class="i"><use href="#i-heart"/></svg></span><div><b>専門家が監修</b><p>理学療法士が<br>内容を監修</p></div></div>
+      <button type="button" class="feat" data-page="purpose"><span class="ic" style="background:#3dbb6d"><svg class="i"><use href="#i-run"/></svg></span><div><b>目的から探す</b><p>痛みの予防・改善、<br>体力づくりなど</p></div></button>
+      <button type="button" class="feat" data-page="video"><span class="ic" style="background:#3f9be0"><svg class="i"><use href="#i-play"/></svg></span><div><b>動画でわかる</b><p>正しいフォームを<br>動画でチェック</p></div></button>
+      <button type="button" class="feat" data-page="daily"><span class="ic" style="background:#f59a2e"><svg class="i"><use href="#i-cal"/></svg></span><div><b>毎日続けられる</b><p>1日5〜15分の<br>かんたんメニュー</p></div></button>
+      <button type="button" class="feat" data-page="expert"><span class="ic" style="background:#ef5b8d"><svg class="i"><use href="#i-heart"/></svg></span><div><b>専門家が監修</b><p>理学療法士が<br>内容を監修</p></div></button>
       <svg class="sprout-deco" viewBox="0 0 64 64"><path d="M32 60V32" stroke="#8cc63f" stroke-width="3.5" stroke-linecap="round"/><path d="M32 34C16 34 8 24 9 12c13-1 23 5 23 22z" fill="#6cc080"/><path d="M32 30C32 17 39 9 54 9c1 12-7 22-22 21z" fill="#b7e07a"/></svg>
     </section>
 
@@ -393,20 +471,9 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
       <details><summary>自分に合うトレーニングがわかりません。</summary><p>「おすすめトレーニング」から目的に近いものを選んでください。迷うときは、リハビリのときに担当の理学療法士へご相談ください。</p></details>
     </section>
 
-    <!-- データの保存（Supabase） -->
-    <section class="sec memo" id="memo">
-      <div class="sec-head"><div><span class="sec-kicker">＼ ひとことメモ ／</span><h2>データを保存する</h2></div></div>
-      <div class="memo-card">
-        <div class="memo-row">
-          <input type="text" id="memoInput" placeholder="保存したい文字を入力してください" maxlength="500" autocomplete="off">
-          <button type="button" id="memoSave">保存する</button>
-        </div>
-        <div class="memo-msg" id="memoMsg" role="status"></div>
-      </div>
-    </section>
   </main>
 
-  <footer class="ft wood"><b>みんなの自主トレ</b>〜毎日の動きが、未来のあなたをつくる〜<br>© みんなの自主トレ</footer>
+  <footer class="ft wood"><b>みんなの自主トレ</b>〜毎日の動きが、未来のあなたをつくる〜<br><span id="adminOpen" class="copy" role="button" tabindex="0">© みんなの自主トレ</span></footer>
 
   <!-- スマホ用タブバー -->
   <nav class="tabbar" id="tabbar">
@@ -418,6 +485,9 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
   </nav>
 </div>
 </div>
+
+<!-- 管理画面（パスワード付き） -->
+<div class="adm" id="adm" role="dialog" aria-modal="true"><div class="adm-box" id="admBox"></div></div>
 
 <!-- 詳細・動画のモーダル -->
 <div class="modal" id="modal" role="dialog" aria-modal="true">
@@ -441,8 +511,13 @@ const CONFIG = {
   // ■ Supabase（データの保存先）の接続情報 ─ ここに貼り付けてください
   SUPABASE_URL: 'ここにProject URLを貼り付けてください',            // 例：'https://xxxxxxxx.supabase.co'
   SUPABASE_KEY: 'ここにPublishable key（sb_publishable_...）を貼り付けてください',
-  TABLE: 'tore_data',     // 保存先のテーブル名
-  COLUMN: 'content'       // 保存する列名
+  TABLE: 'tore_data',     // 保存先のテーブル名（接続テスト用）
+  COLUMN: 'content',      // 保存する列名
+
+  // ■ 管理画面（フッターの「© みんなの自主トレ」を押すと開きます）
+  ADMIN_EMAIL: 'ここに管理者のメールアドレスを貼り付けてください',   // Supabaseの Authentication で作ったユーザーのメール
+  ITEMS_TABLE: 'tore_items',   // PDF・動画の情報を入れるテーブル
+  BUCKET: 'jishutore'          // PDFと画像を置く Storage のバケット名
 };
 const TRAININGS = [
   {id:'stretch', name:'ストレッチ',       color:'#e58fc4', icon:'i-run',      caption:'全身をほぐして<br>柔軟性を高める', desc:'全身をほぐして、柔軟性を高めるメニューです。', video:'', pdf:[], img:'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'},
@@ -608,6 +683,7 @@ function getSb(){
 }
 async function saveMemo(){
   const input=$('#memoInput'), msg=$('#memoMsg'), btn=$('#memoSave');
+  if(!input)return;
   const text=input.value.trim();
   msg.className='memo-msg'; msg.textContent='';
   if(!text){ alert('保存する文字を入力してください。'); input.focus(); return; }
@@ -627,8 +703,264 @@ async function saveMemo(){
     btn.disabled=false; btn.textContent='保存する';
   }
 }
-$('#memoSave').addEventListener('click',saveMemo);
-$('#memoInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); saveMemo(); } });
+
+
+/* =====================================================================
+   データの保存（PDF・動画）と、管理画面
+   ===================================================================== */
+const CATS = [
+  {name:'頭',      color:'#7b9ee6'},
+  {name:'首',      color:'#e58fc4'},
+  {name:'上肢',    color:'#8b7bd8'},
+  {name:'体幹・腰', color:'#4aa3e0'},
+  {name:'下肢',    color:'#58b46a'}
+];
+const catColor = n => (CATS.find(c=>c.name===n)||{}).color || '#3dbb6d';
+const PAGES = {
+  purpose:{no:'①', label:'目的別',        kinds:['pdf'],          cats:true,  daily:true,  lead:'気になる部位から、自主トレのPDFを探せます。'},
+  video:  {no:'②', label:'動画でわかる',  kinds:['video'],        cats:true,  daily:true,  lead:'動画を見ながら、正しいフォームを確認できます。（YouTubeが開きます）'},
+  daily:  {no:'③', label:'毎日続けられる', kinds:['pdf','video'],  cats:false, daily:false, lead:'毎日つづけやすいメニューを集めました。'},
+  expert: {no:'④', label:'専門家が監修',  kinds:['pdf','video'],  cats:true,  daily:true,  lead:'理学療法士が内容を監修した自主トレです。'}
+};
+const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const safeUrl = u => /^https?:\/\//i.test(u||'') ? u : '';
+
+/* ---- YouTube ---- */
+function ytId(u){
+  try{
+    const x=new URL(u); const h=x.hostname.replace(/^(www|m)\./,'');
+    if(h==='youtu.be') return x.pathname.slice(1).split('/')[0];
+    if(h==='youtube.com'||h==='youtube-nocookie.com'){
+      if(x.pathname==='/watch') return x.searchParams.get('v')||'';
+      const m=x.pathname.match(/^\/(embed|shorts|live|v)\/([\w-]{6,})/); if(m) return m[2];
+    }
+  }catch(e){}
+  return '';
+}
+const ytThumb = u => { const id=ytId(u); return id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:''; };
+
+/* ---- 画像を小さくする（長いほうを最大640px、JPEG） ---- */
+function compressImage(file,maxSide=640,quality=0.72){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file); const im=new Image();
+    im.onload=()=>{
+      const s=Math.min(1,maxSide/Math.max(im.naturalWidth,im.naturalHeight));
+      const w=Math.max(1,Math.round(im.naturalWidth*s)), h=Math.max(1,Math.round(im.naturalHeight*s));
+      const c=document.createElement('canvas'); c.width=w; c.height=h;
+      const g=c.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,w,h); g.drawImage(im,0,0,w,h);
+      URL.revokeObjectURL(url);
+      c.toBlob(b=>b?resolve({blob:b,w,h}):reject(new Error('画像を小さくできませんでした')),'image/jpeg',quality);
+    };
+    im.onerror=()=>{ URL.revokeObjectURL(url); reject(new Error('画像を読み込めませんでした（JPEG・PNGなどを選んでください）')); };
+    im.src=url;
+  });
+}
+
+/* ---- Supabase：データの読み書き ---- */
+let ITEMS=null, ITEMS_ERR='';
+async function loadItems(force){
+  if(ITEMS && !force) return ITEMS;
+  ITEMS_ERR='';
+  try{
+    const sb=getSb();
+    const {data,error}=await sb.from(CONFIG.ITEMS_TABLE).select('*').order('sort_order',{ascending:true}).order('id',{ascending:true});
+    if(error) throw error;
+    ITEMS=data||[];
+  }catch(e){ ITEMS=[]; ITEMS_ERR=(e&&e.message)||String(e); }
+  return ITEMS;
+}
+function storagePath(url){ const k='/'+CONFIG.BUCKET+'/'; const i=(url||'').indexOf(k); return i<0?'':decodeURIComponent(url.slice(i+k.length).split('?')[0]); }
+async function uploadFile(folder,body,ext,type){
+  const sb=getSb();
+  const path=`${folder}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+  const {error}=await sb.storage.from(CONFIG.BUCKET).upload(path,body,{contentType:type,cacheControl:'3600',upsert:false});
+  if(error) throw error;
+  return sb.storage.from(CONFIG.BUCKET).getPublicUrl(path).data.publicUrl;
+}
+
+/* ---- 公開ページ（目的別・動画・毎日・専門家） ---- */
+function tileHtml(it,showSrc){
+  const href = safeUrl(it.kind==='pdf'?it.pdf_url:it.video_url);
+  const thumb = safeUrl(it.image_url) || (it.kind==='video'?ytThumb(it.video_url):'');
+  const srcLabel = showSrc && it.page!=='daily' ? `<small>${esc(PAGES[it.page].no+' '+PAGES[it.page].label)}${it.category?'・'+esc(it.category):''}</small>` : '';
+  return `<a class="tile" href="${esc(href)}" target="_blank" rel="noopener">
+    <div class="th">${thumb?`<img loading="lazy" alt="" src="${esc(thumb)}">`:`<svg class="i"><use href="#${it.kind==='pdf'?'i-pdf':'i-play'}"/></svg>`}
+      <span class="bg ${it.kind==='video'?'v':''}">${it.kind==='pdf'?'PDF':'▶ 動画'}</span></div>
+    <div class="tt">${esc(it.title)}${srcLabel}</div></a>`;
+}
+async function openPage(key){
+  const P=PAGES[key]; if(!P) return;
+  const box=$('#subpage');
+  box.innerHTML=`<div class="sub-top"><button class="sub-back" type="button" id="subBack">← ホームへもどる</button><h2>${P.no} ${P.label}</h2></div><p class="sub-lead">${P.lead}</p><div class="empty-sub">読み込み中…</div>`;
+  $('#frame').classList.add('sub'); $('#frame').scrollTop=0; window.scrollTo(0,0);
+  $('#subBack').onclick=closePage;
+  const items=await loadItems(true);
+  let body='';
+  if(ITEMS_ERR) body=`<div class="empty-sub">準備中です。<br><small>${esc(ITEMS_ERR)}</small></div>`;
+  else if(key==='daily'){
+    const list=items.filter(i=>i.page==='daily'||i.daily);
+    body=list.length?`<div class="tiles">${list.map(i=>tileHtml(i,true)).join('')}</div>`:'<div class="empty-sub">準備中です。公開までしばらくお待ちください。</div>';
+  }else{
+    const list=items.filter(i=>i.page===key);
+    body=CATS.map(c=>{ const g=list.filter(i=>i.category===c.name);
+      return `<div class="sgrp" style="--c:${c.color}"><h3>${esc(c.name)}</h3>${g.length?`<div class="tiles">${g.map(i=>tileHtml(i,false)).join('')}</div>`:'<div class="empty-sub">準備中です</div>'}</div>`; }).join('');
+  }
+  box.innerHTML=`<div class="sub-top"><button class="sub-back" type="button" id="subBack">← ホームへもどる</button><h2>${P.no} ${P.label}</h2></div><p class="sub-lead">${P.lead}</p>${body}`;
+  $('#subBack').onclick=closePage;
+}
+function closePage(){ $('#frame').classList.remove('sub'); $('#frame').scrollTop=0; window.scrollTo(0,0); }
+$$('.feat[data-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.page)));
+
+/* ---- 管理画面 ---- */
+const adm={open:false,signed:false,page:'purpose',cat:'頭',kind:'pdf',busy:false,msg:'',msgOk:true,img:null,imgInfo:''};
+function admConfigured(){ return /^https:\/\//.test(CONFIG.SUPABASE_URL)&&CONFIG.ADMIN_EMAIL&&!CONFIG.ADMIN_EMAIL.startsWith('ここに')&&!CONFIG.SUPABASE_KEY.startsWith('ここに'); }
+function openAdmin(){ adm.open=true; adm.signed=false; $('#adm').classList.add('open'); admLoginView(); }
+async function closeAdmin(){ adm.open=false; adm.signed=false; $('#adm').classList.remove('open'); try{ await getSb().auth.signOut(); }catch(e){} }
+$('#adminOpen').addEventListener('click',openAdmin);
+$('#adminOpen').addEventListener('keydown',e=>{ if(e.key==='Enter')openAdmin(); });
+
+function admLoginView(msg){
+  const ok=admConfigured();
+  $('#admBox').innerHTML=`<div class="adm-hd"><b>管理画面</b><button type="button" id="admClose">閉じる</button></div>
+    <div class="adm-login"><h3>🔒 パスワードを入力</h3>
+      <p>${ok?'管理者のパスワードを入力してください。':'接続情報が未設定です。ファイルの CONFIG に、Project URL・Publishable key・管理者のメールアドレスを貼り付けてください。'}</p>
+      <input type="password" id="admPw" placeholder="パスワード" autocomplete="current-password" ${ok?'':'disabled'}>
+      <div class="adm-err" id="admErr">${esc(msg||'')}</div>
+      <button class="btn-main" type="button" id="admGo" ${ok?'':'disabled'}>ログイン</button></div>`;
+  $('#admClose').onclick=closeAdmin;
+  if(!ok)return;
+  const go=async()=>{
+    const pw=$('#admPw').value; if(!pw){ $('#admErr').textContent='パスワードを入力してください。'; return; }
+    $('#admGo').disabled=true; $('#admErr').textContent='';
+    try{
+      const {error}=await getSb().auth.signInWithPassword({email:CONFIG.ADMIN_EMAIL,password:pw});
+      if(error) throw error;
+      adm.signed=true; adm.msg=''; await loadItems(true); admRender();
+    }catch(e){ $('#admGo').disabled=false; $('#admErr').textContent='ログインできません：'+((e&&e.message)||e); }
+  };
+  $('#admGo').onclick=go; $('#admPw').addEventListener('keydown',e=>{ if(e.key==='Enter')go(); }); $('#admPw').focus();
+}
+
+function admRows(list,opt){
+  if(!list.length) return '<div class="empty-sub" style="padding:16px">まだありません</div>';
+  return list.map(it=>{
+    const thumb=safeUrl(it.image_url)||(it.kind==='video'?ytThumb(it.video_url):'');
+    return `<div class="arow">
+      ${thumb?`<img alt="" src="${esc(thumb)}">`:`<div class="ph">${it.kind==='pdf'?'PDF':'動画'}</div>`}
+      <div class="nm"><b>${esc(it.title)}</b><small>${it.kind==='pdf'?'PDF':'動画（YouTube）'}${it.category?'・'+esc(it.category):''}${opt&&opt.src?'・'+esc(PAGES[it.page].no+' '+PAGES[it.page].label):''}</small></div>
+      ${opt&&opt.daily?`<label><input type="checkbox" data-daily="${it.id}" ${it.daily?'checked':''}>毎日続けられる</label>`:''}
+      <div class="acts">
+        ${opt&&opt.unflag?`<button class="btn-sub" type="button" data-unflag="${it.id}">③から外す</button>`:`<button class="btn-sub" type="button" data-rename="${it.id}">題名を変更</button><button class="btn-sub red" type="button" data-del="${it.id}">削除</button>`}
+      </div></div>`;
+  }).join('');
+}
+function admRender(){
+  const P=PAGES[adm.page];
+  if(!P.kinds.includes(adm.kind)) adm.kind=P.kinds[0];
+  const items=ITEMS||[];
+  let listHtml='';
+  if(adm.page==='daily'){
+    const flagged=items.filter(i=>i.page!=='daily'&&i.daily), own=items.filter(i=>i.page==='daily');
+    listHtml=`<div class="adm-h">①②④で「毎日続けられる」にチェックしたもの</div>${admRows(flagged,{src:true,unflag:true})}
+      <div class="adm-h" style="margin-top:18px">③に直接つくったもの</div>${admRows(own,{})}`;
+  }else{
+    const list=items.filter(i=>i.page===adm.page&&(!P.cats||i.category===adm.cat));
+    listHtml=`<div class="adm-h">${P.cats?esc(adm.cat)+' の':''}登録ずみ（${list.length}件）</div>${admRows(list,{daily:P.daily})}`;
+  }
+  const chips=P.cats?`<div class="chips">${CATS.map(c=>`<button type="button" data-cat="${esc(c.name)}" class="${adm.cat===c.name?'on':''}" style="--c:${c.color}">${esc(c.name)}</button>`).join('')}</div>`:'';
+  const kindSel=P.kinds.length>1?`<div class="fld"><label class="lb">種類</label><div class="radio">${P.kinds.map(k=>`<label><input type="radio" name="kind" value="${k}" ${adm.kind===k?'checked':''}>${k==='pdf'?'PDF':'動画（YouTube）'}</label>`).join('')}</div></div>`:'';
+  const form=`<div class="aform"><div class="adm-h" style="margin-top:0">新しく追加する</div>
+    ${P.cats?`<div class="fld"><label class="lb">部位</label><select id="fCat">${CATS.map(c=>`<option ${adm.cat===c.name?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>`:''}
+    ${kindSel}
+    <div class="fld"><label class="lb">タイトル（自由に書けます）</label><input type="text" id="fTitle" maxlength="80" placeholder="例：首のストレッチ"></div>
+    <div class="fld"><label class="lb">画像${adm.kind==='video'?'（なければ、YouTubeの画像を自動で使います）':''}</label><input type="file" id="fImg" accept="image/*">
+      <div class="hint">長いほうを640px以下・JPEGに小さくして保存します。</div><div class="prev" id="fPrev"></div></div>
+    ${adm.kind==='pdf'
+      ?`<div class="fld"><label class="lb">PDFファイル</label><input type="file" id="fPdf" accept="application/pdf,.pdf"><div class="hint">50MBまで</div></div>`
+      :`<div class="fld"><label class="lb">YouTubeのURL（限定公開でOK）</label><input type="url" id="fUrl" placeholder="https://youtu.be/xxxxxxxxxxx"></div>`}
+    ${P.daily?`<div class="fld"><label style="display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px"><input type="checkbox" id="fDaily">「毎日続けられる」にも載せる（③に表示）</label></div>`:''}
+    <button class="btn-main" type="button" id="fSave" ${adm.busy?'disabled':''}>${adm.busy?'保存中…':'保存する'}</button>
+    <div class="adm-msg ${adm.msg?(adm.msgOk?'ok':'ng'):''}" id="fMsg">${esc(adm.msg)}</div></div>`;
+  const memo=`<div class="aform" style="margin-top:26px"><div class="adm-h" style="margin-top:0">接続テスト（メモを保存）</div>
+    <div class="memo-row"><input type="text" id="memoInput" placeholder="保存したい文字" maxlength="500" autocomplete="off"><button type="button" id="memoSave">保存する</button></div><div class="memo-msg" id="memoMsg"></div></div>`;
+  $('#admBox').innerHTML=`<div class="adm-hd"><b>管理画面</b><button type="button" id="admLogout">ログアウト</button><button type="button" id="admClose">閉じる</button></div>
+    <div class="adm-tabs">${Object.keys(PAGES).map(k=>`<button type="button" data-tab="${k}" class="${adm.page===k?'on':''}">${PAGES[k].no} ${PAGES[k].label}</button>`).join('')}</div>
+    <div class="adm-body">${ITEMS_ERR?`<div class="adm-note">データを読み込めませんでした：${esc(ITEMS_ERR)}</div>`:''}${chips}${listHtml}${form}${memo}</div>`;
+  admBind();
+}
+function admBind(){
+  const box=$('#admBox');
+  $('#admClose').onclick=closeAdmin;
+  $('#admLogout').onclick=async()=>{ try{await getSb().auth.signOut();}catch(e){} adm.signed=false; admLoginView(); };
+  $$('[data-tab]',box).forEach(b=>b.onclick=()=>{ adm.page=b.dataset.tab; adm.msg=''; adm.img=null; adm.imgInfo=''; admRender(); });
+  $$('[data-cat]',box).forEach(b=>b.onclick=()=>{ adm.cat=b.dataset.cat; adm.msg=''; admRender(); });
+  const fc=$('#fCat'); if(fc) fc.onchange=()=>{ adm.cat=fc.value; admRender(); };
+  $$('input[name=kind]',box).forEach(r=>r.onchange=()=>{ adm.kind=r.value; adm.msg=''; admRender(); });
+  $('#fImg').onchange=async e=>{
+    const f=e.target.files[0]; adm.img=null; $('#fPrev').innerHTML='';
+    if(!f)return;
+    try{ const r=await compressImage(f); adm.img=r;
+      const u=URL.createObjectURL(r.blob);
+      $('#fPrev').innerHTML=`<img alt="" src="${u}"><span>${r.w}×${r.h}px・${Math.round(r.blob.size/1024)}KB（元：${Math.round(f.size/1024)}KB）</span>`;
+    }catch(err){ $('#fPrev').textContent=err.message; }
+  };
+  $('#fSave').onclick=admSave;
+  // 行の操作
+  $$('[data-daily]',box).forEach(c=>c.onchange=()=>admDo(()=>getSb().from(CONFIG.ITEMS_TABLE).update({daily:c.checked}).eq('id',+c.dataset.daily),'更新しました'));
+  $$('[data-unflag]',box).forEach(b=>b.onclick=()=>admDo(()=>getSb().from(CONFIG.ITEMS_TABLE).update({daily:false}).eq('id',+b.dataset.unflag),'③から外しました'));
+  $$('[data-rename]',box).forEach(b=>b.onclick=()=>{
+    const it=ITEMS.find(x=>x.id===+b.dataset.rename); const t=prompt('新しいタイトル',it.title);
+    if(t&&t.trim()) admDo(()=>getSb().from(CONFIG.ITEMS_TABLE).update({title:t.trim().slice(0,80)}).eq('id',it.id),'タイトルを変更しました');
+  });
+  $$('[data-del]',box).forEach(b=>b.onclick=()=>{
+    const it=ITEMS.find(x=>x.id===+b.dataset.del); if(!confirm('「'+it.title+'」を削除しますか？'))return;
+    admDo(async()=>{
+      const paths=[storagePath(it.image_url),storagePath(it.pdf_url)].filter(Boolean);
+      if(paths.length){ try{ await getSb().storage.from(CONFIG.BUCKET).remove(paths); }catch(e){} }
+      return getSb().from(CONFIG.ITEMS_TABLE).delete().eq('id',it.id);
+    },'削除しました');
+  });
+  const ms=$('#memoSave'); if(ms){ ms.onclick=saveMemo; $('#memoInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); saveMemo(); } }); }
+}
+async function admDo(fn,okMsg){
+  try{ const r=await fn(); if(r&&r.error) throw r.error; await loadItems(true); adm.msg=okMsg; adm.msgOk=true; }
+  catch(e){ adm.msg='できませんでした：'+((e&&e.message)||e); adm.msgOk=false; }
+  admRender();
+}
+async function admSave(){
+  const P=PAGES[adm.page], msg=$('#fMsg'), btn=$('#fSave');
+  const title=$('#fTitle').value.trim();
+  const fail=m=>{ msg.className='adm-msg ng'; msg.textContent=m; };
+  if(!title) return fail('タイトルを入力してください。');
+  let pdfFile=null, videoUrl='';
+  if(adm.kind==='pdf'){
+    pdfFile=$('#fPdf').files[0];
+    if(!pdfFile) return fail('PDFファイルを選んでください。');
+    if(pdfFile.type!=='application/pdf'&&!/\.pdf$/i.test(pdfFile.name)) return fail('PDFファイルを選んでください。');
+    if(pdfFile.size>50*1024*1024) return fail('PDFが大きすぎます（50MBまで）。');
+  }else{
+    videoUrl=$('#fUrl').value.trim();
+    if(!ytId(videoUrl)) return fail('YouTubeのURLを入力してください。（例：https://youtu.be/xxxxxxxxxxx）');
+  }
+  btn.disabled=true; btn.textContent='保存中…'; msg.className='adm-msg'; msg.textContent='ファイルを送っています…';
+  const uploaded=[];
+  try{
+    let image_url=null, pdf_url=null;
+    if(adm.img){ image_url=await uploadFile('img',adm.img.blob,'jpg','image/jpeg'); uploaded.push(image_url); }
+    if(pdfFile){ pdf_url=await uploadFile('pdf',pdfFile,'pdf','application/pdf'); uploaded.push(pdf_url); }
+    const row={page:adm.page,category:P.cats?($('#fCat')?$('#fCat').value:adm.cat):null,kind:adm.kind,title,image_url,pdf_url,video_url:videoUrl||null,daily:P.daily?!!$('#fDaily').checked:false};
+    const {error}=await getSb().from(CONFIG.ITEMS_TABLE).insert(row);
+    if(error) throw error;
+    adm.img=null; adm.msg='保存しました'; adm.msgOk=true;
+    await loadItems(true); admRender();
+  }catch(e){
+    // 失敗したときは、送ったファイルを片づける
+    const paths=uploaded.map(storagePath).filter(Boolean);
+    if(paths.length){ try{ await getSb().storage.from(CONFIG.BUCKET).remove(paths); }catch(_){} }
+    btn.disabled=false; btn.textContent='保存する';
+    fail('保存できませんでした：'+((e&&e.message)||e));
+  }
+}
 
 /* ---------- PC／スマホの切り替え ---------- */
 function setView(v){
