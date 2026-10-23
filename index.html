@@ -509,13 +509,13 @@ const CONFIG = {
   heroVideo: '',   // トップの再生ボタンで再生される動画のURL（例：'https://example.com/hero.mp4'）
 
   // ■ Supabase（データの保存先）の接続情報 ─ ここに貼り付けてください
-  SUPABASE_URL: 'ここにProject URLを貼り付けてください',            // 例：'https://xxxxxxxx.supabase.co'
-  SUPABASE_KEY: 'ここにPublishable key（sb_publishable_...）を貼り付けてください',
+  SUPABASE_URL: 'https://khqcssofluhjknmjbrub.supabase.co',     // Project URL（末尾の /rest/v1/ は付けない）
+  SUPABASE_KEY: 'sb_publishable_6zRcR4yB8gInqop7KdOXOg_U-Vm-wg6',   // Publishable key（ブラウザで使ってよいキー）
   TABLE: 'tore_data',     // 保存先のテーブル名（接続テスト用）
   COLUMN: 'content',      // 保存する列名
 
   // ■ 管理画面（フッターの「© みんなの自主トレ」を押すと開きます）
-  ADMIN_EMAIL: 'fujiharaseikeinoushinkei@gmail.com',   // Supabaseの Authentication で作ったユーザーのメール
+  ADMIN_EMAIL: 'fujiharaseikeinoushinkei@gmail.com',   // 管理画面のログインに使うメール（Supabaseの Authentication のユーザー）
   ITEMS_TABLE: 'tore_items',   // PDF・動画の情報を入れるテーブル
   BUCKET: 'jishutore'          // PDFと画像を置く Storage のバケット名
 };
@@ -678,7 +678,8 @@ function getSb(){
     throw new Error('Supabaseの接続情報が未設定です。ファイルの CONFIG に Project URL と Publishable key を貼り付けてください。');
   if(!window.supabase||!window.supabase.createClient)
     throw new Error('Supabaseの読み込みに失敗しました。インターネットの接続を確認してください。');
-  sbClient=window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_KEY);
+  const base=CONFIG.SUPABASE_URL.trim().replace(/\/rest\/v1\/?$/,'').replace(/\/+$/,'');
+  sbClient=window.supabase.createClient(base,CONFIG.SUPABASE_KEY.trim());
   return sbClient;
 }
 async function saveMemo(){
@@ -885,14 +886,19 @@ function admRender(){
     <div class="adm-msg ${adm.msg?(adm.msgOk?'ok':'ng'):''}" id="fMsg">${esc(adm.msg)}</div></div>`;
   const memo=`<div class="aform" style="margin-top:26px"><div class="adm-h" style="margin-top:0">接続テスト（メモを保存）</div>
     <div class="memo-row"><input type="text" id="memoInput" placeholder="保存したい文字" maxlength="500" autocomplete="off"><button type="button" id="memoSave">保存する</button></div><div class="memo-msg" id="memoMsg"></div></div>`;
+  const pwCard=`<div class="aform" style="margin-top:26px"><div class="adm-h" style="margin-top:0">パスワードの変更</div>
+    <div class="fld"><label class="lb">新しいパスワード（8文字以上）</label><input type="password" id="pwNew" autocomplete="new-password" style="width:100%;font-size:15px;padding:11px 12px;border:1.5px solid #d9cfbd;border-radius:10px;font-family:inherit"></div>
+    <div class="fld"><label class="lb">もう一度入力</label><input type="password" id="pwNew2" autocomplete="new-password" style="width:100%;font-size:15px;padding:11px 12px;border:1.5px solid #d9cfbd;border-radius:10px;font-family:inherit"></div>
+    <button class="btn-main" type="button" id="pwSave">パスワードを変更する</button><div class="adm-msg" id="pwMsg"></div></div>`;
   $('#admBox').innerHTML=`<div class="adm-hd"><b>管理画面</b><button type="button" id="admLogout">ログアウト</button><button type="button" id="admClose">閉じる</button></div>
     <div class="adm-tabs">${Object.keys(PAGES).map(k=>`<button type="button" data-tab="${k}" class="${adm.page===k?'on':''}">${PAGES[k].no} ${PAGES[k].label}</button>`).join('')}</div>
-    <div class="adm-body">${ITEMS_ERR?`<div class="adm-note">データを読み込めませんでした：${esc(ITEMS_ERR)}</div>`:''}${chips}${listHtml}${form}${memo}</div>`;
+    <div class="adm-body">${ITEMS_ERR?`<div class="adm-note">データを読み込めませんでした：${esc(ITEMS_ERR)}</div>`:''}${chips}${listHtml}${form}${pwCard}${memo}</div>`;
   admBind();
 }
 function admBind(){
   const box=$('#admBox');
   $('#admClose').onclick=closeAdmin;
+  const pwb=$('#pwSave'); if(pwb) pwb.onclick=admChangePw;
   $('#admLogout').onclick=async()=>{ try{await getSb().auth.signOut();}catch(e){} adm.signed=false; admLoginView(); };
   $$('[data-tab]',box).forEach(b=>b.onclick=()=>{ adm.page=b.dataset.tab; adm.kind=PAGES[adm.page].kinds[0]; adm.msg=''; adm.img=null; adm.imgInfo=''; adm.title=''; adm.dailyChk=false; admRender(); });
   $$('[data-cat]',box).forEach(b=>b.onclick=()=>{ admKeepForm(); adm.cat=b.dataset.cat; adm.msg=''; admRender(); });
@@ -923,6 +929,19 @@ function admBind(){
     },'削除しました');
   });
   const ms=$('#memoSave'); if(ms){ ms.onclick=saveMemo; $('#memoInput').addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); saveMemo(); } }); }
+}
+async function admChangePw(){
+  const a=$('#pwNew').value, b=$('#pwNew2').value, msg=$('#pwMsg'), btn=$('#pwSave');
+  const say=(m,ok)=>{ msg.className='adm-msg '+(ok?'ok':'ng'); msg.textContent=m; };
+  if(a.length<8) return say('パスワードは8文字以上にしてください。',false);
+  if(a!==b) return say('2回の入力が一致しません。',false);
+  btn.disabled=true; say('変更しています…',true);
+  try{
+    const {error}=await getSb().auth.updateUser({password:a});
+    if(error) throw error;
+    $('#pwNew').value=''; $('#pwNew2').value=''; say('パスワードを変更しました。次回から、新しいパスワードでログインしてください。',true);
+  }catch(e){ say('変更できませんでした：'+((e&&e.message)||e),false); }
+  btn.disabled=false;
 }
 async function admDo(fn,okMsg){
   try{ const r=await fn(); if(r&&r.error) throw r.error; await loadItems(true); adm.msg=okMsg; adm.msgOk=true; }
