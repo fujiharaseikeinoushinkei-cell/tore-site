@@ -220,7 +220,7 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
 .adm-login p{font-size:12.5px;color:var(--ink2);margin-bottom:16px}
 .adm-login input{width:100%;font-size:16px;padding:13px 14px;border:1.5px solid #d9cfbd;border-radius:12px;margin-bottom:10px;outline:none;font-family:inherit}
 .adm-login input:focus{border-color:var(--green)}
-.adm-err{color:#d64545;font-size:13px;font-weight:700;min-height:1.4em;margin:6px 0}
+.adm-err{color:#d64545;font-size:13px;font-weight:700;min-height:1.4em;margin:6px 0;white-space:pre-wrap;text-align:left;line-height:1.7}
 .btn-main{background:var(--green);color:#fff;font-weight:700;font-size:14px;padding:12px 26px;border-radius:12px;box-shadow:0 8px 16px -8px rgba(40,160,90,.7)}
 .btn-main:disabled{opacity:.6}
 .btn-sub{background:#fff;border:1.5px solid #cfc6b4;color:var(--ink2);font-weight:700;font-size:12px;padding:6px 12px;border-radius:999px}
@@ -879,7 +879,15 @@ function admLoginView(msg){
       const {error}=await getSb().auth.signInWithPassword({email:CONFIG.ADMIN_EMAIL,password:pw});
       if(error) throw error;
       adm.signed=true; adm.msg=''; await loadItems(true); admRender();
-    }catch(e){ $('#admGo').disabled=false; $('#admErr').textContent='ログインできません：'+((e&&e.message)||e); }
+    }catch(e){
+      $('#admGo').disabled=false;
+      const m=(e&&e.message)||String(e); let tip='';
+      const mask=s=>{ const a=String(s).split('@'); return a[0].slice(0,3)+'***@'+(a[1]||''); };
+      if(/invalid login credentials/i.test(m)) tip='パスワードが違うか、このメール（'+mask(CONFIG.ADMIN_EMAIL)+'）のユーザーがSupabaseにありません。';
+      else if(/not confirmed/i.test(m)) tip='このユーザーの確認が終わっていません。SupabaseのAuthenticationで、確認ずみ（Confirmed）にしてください。';
+      else if(/rate|too many|seconds/i.test(m)) tip='短い時間に何度も試したため、少し待ってからやり直してください。';
+      $('#admErr').textContent='ログインできません：'+m+(tip?'\n'+tip:'');
+    }
   };
   $('#admGo').onclick=go; $('#admPw').addEventListener('keydown',e=>{ if(e.key==='Enter')go(); }); $('#admPw').focus();
 }
