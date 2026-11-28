@@ -290,7 +290,17 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
 .modal{position:fixed;inset:0;z-index:200;background:rgba(30,25,20,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:18px}
 .modal.open{display:flex;animation:fade .25s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
-.mbox{width:min(560px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
+.mbox{width:min(960px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
+.recommend-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.recommend-panel{min-width:0;border:1px solid #eee3d0;border-radius:12px;padding:14px;background:#fff}
+.recommend-panel h4{font-size:16px;margin-bottom:10px;color:var(--ink)}
+.recommend-docs{display:flex;flex-direction:column;gap:9px}
+.recommend-docs .mpdf{margin-top:0}
+.recommend-video{position:relative;aspect-ratio:16/9;background:#1e1e1e;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff}
+.recommend-video video{width:100%;height:100%;object-fit:contain;background:#000}
+.recommend-video .soonmsg{position:relative;text-align:center;font-weight:700;padding:12px}
+.recommend-video .soonmsg svg{width:42px;height:42px;fill:#fff;display:block;margin:0 auto 6px}
+.recommend-empty{font-size:13px;color:var(--ink2);padding:10px 2px}
 .mbox .mm{position:relative;aspect-ratio:16/9;background:#1e1e1e;display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden}
 .mbox .mm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
 .mbox .mm video{position:absolute;inset:0;width:100%;height:100%;background:#000}
@@ -356,6 +366,8 @@ body[data-view="sp"] .frame::before{content:"";position:sticky;top:0;display:blo
   .pdfrow{flex-wrap:wrap}
   .pdfrow .pb{margin-left:0;justify-content:flex-start}
   .choices{grid-template-columns:1fr 1fr;gap:10px}
+  .recommend-layout{grid-template-columns:1fr;gap:12px}
+  .recommend-panel{padding:12px}
   .banner{min-height:150px}
   .banner-in{flex-direction:column;align-items:flex-start;gap:12px;padding:20px 16px 20px 112px}
   .banner-copy{font-size:18px}
@@ -607,15 +619,27 @@ function media(item,inner){
   return `<div class="mm">${bg}${inner||''}</div>`;
 }
 function viewChoice(item){
-  const hasV=!!item.video, n=(item.pdf||[]).length;
-  $('#mbox').innerHTML = head(item)+media(item,'')+`
+  const list=item.pdf||[];
+  const videoPanel=item.video
+    ? `<div class="recommend-video"><video controls playsinline preload="metadata" src="${item.video}"></video></div>`
+    : `<div class="recommend-video"><div class="soonmsg"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>動画は準備中です</div></div>`;
+  const docs=list.length
+    ? `<div class="recommend-docs">${list.map((p,i)=>`<div class="mpdf"><svg class="i"><use href="#i-pdf"/></svg><b>${p.title||'自主トレ'}</b><button class="pbtn" type="button" data-act="openpdf" data-i="${i}">開く</button><button class="pbtn" type="button" data-act="dlpdf" data-i="${i}">保存</button></div>`).join('')}</div>`
+    : `<div class="recommend-empty">資料は準備中です。</div>`;
+  $('#mbox').innerHTML = head(item)+`
     <div class="mb">
       <span class="tag" style="background:${item.color}">${item.name}</span>
       <h3>${item.title||item.name}</h3>
       <p>${item.desc}</p>
-      <div class="choices" style="--c:${item.color}">
-        <button class="choice ${hasV?'':'off'}" type="button" data-act="video"><svg class="i"><use href="#i-play"/></svg>動画で学ぶ<small>${hasV?'動画を見る':'準備中'}</small></button>
-        <button class="choice ${n?'':'off'}" type="button" data-act="pdf"><svg class="i"><use href="#i-pdf"/></svg>自主トレ（資料）<small>${n?n+'件の資料':'準備中'}</small></button>
+      <div class="recommend-layout">
+        <section class="recommend-panel">
+          <h4>資料</h4>
+          ${docs}
+        </section>
+        <section class="recommend-panel">
+          <h4>動画</h4>
+          ${videoPanel}
+        </section>
       </div>
       <div class="note">痛みや違和感があるときは、無理をせず中止して、担当の理学療法士または医師にご相談ください。</div>
     </div>`;
@@ -670,7 +694,6 @@ document.addEventListener('click',e=>{
   if(p){ const [id,i]=p.dataset.pdf.split(':'); const t=TRAININGS.find(x=>x.id===id); openModal(t,'pdf'); return; }
   const c=e.target.closest('.card,.vitem');
   if(c){
-    if(c.classList.contains('card')&&c.dataset.id==='stretch'){ openPage('stretch'); return; }
     const t=TRAININGS.find(x=>x.id===c.dataset.id); openModal(c.dataset.view==='video'?{...t,noback:false}:t, c.dataset.view==='video'?'video':'choice');
   }
 });
